@@ -6,7 +6,7 @@
 import java.util.*;
 
 //docs about generic version of class: https://docs.oracle.com/javase/tutorial/java/generics/types.html
-public class myBST <T extends Comparable<T>> implements Iterable<T> {
+public class myBST <T extends Comparable<T>>{
 
     //define tree node using a inner class
     private class Node<T> {
@@ -56,7 +56,7 @@ public class myBST <T extends Comparable<T>> implements Iterable<T> {
 
     private Node<T> insert(Node<T> root, T data) {
       if (root == null) {
-        return new Nodt<T>(data);
+        return new Node<T>(data);
       }
       if (compare(root.data, data) == 0) {
         return root;
@@ -138,10 +138,18 @@ public class myBST <T extends Comparable<T>> implements Iterable<T> {
 
     public static void main(String[] args) {
       Integer[] a = {1,5,2,7,4};
-      BST<Integer> bst = new BST<Integer>();
-      bst.delete(1);
+      BST<Integer> bst = new BST<Integer>(new MyComp1());
+      //bst.delete(1);
       for(Integer n : a) bst.insert(n);
       bst.preOrderTraversal();
       System.out.println();
+    }
+}
+
+class MyComp1 implements Comparator<Integer>
+{
+    public int compare(Integer x, Integer y)
+    {
+        return y-x;
     }
 }
